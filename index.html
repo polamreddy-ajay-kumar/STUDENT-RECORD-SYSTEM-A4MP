@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="STUDENT RECORD SYSTEM">
+<title>STUDENT RECORD SYSTEM</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loginScreen" class="login-screen">
+  <div class="login-art"><div class="login-badge">SRS</div><h1>STUDENT RECORD SYSTEM</h1><p>Engineering College Academic Record Management</p><div class="login-points"><span>✓ Secure local login</span><span>✓ Account-wise student records</span><span>✓ Professional academic profiles</span></div></div>
+  <div class="login-panel"><div class="login-card"><p class="eyebrow">ACADEMIC PORTAL</p><h2 id="authTitle">Sign in</h2><p class="muted" id="authSub">Use your account to access your student records.</p>
+    <form id="loginForm">
+      <label>Username<input id="loginUser" autocomplete="username" required placeholder="Enter username"></label>
+      <label>Password<input id="loginPass" type="password" autocomplete="current-password" required placeholder="Enter password"></label>
+      <button class="primary full" type="submit">Sign In</button>
+    </form>
+    <button class="link-btn" id="showRegister">Create new account</button>
+    <form id="registerForm" class="hidden">
+      <label>New Username<input id="regUser" required minlength="3" placeholder="e.g. admin01"></label>
+      <label>Password<input id="regPass" type="password" required minlength="4" placeholder="Minimum 4 characters"></label>
+      <label>Confirm Password<input id="regConfirm" type="password" required minlength="4"></label>
+      <button class="primary full" type="submit">Create Account</button>
+      <button class="link-btn" id="backLogin" type="button">Back to sign in</button>
+    </form>
+    <div class="demo-note"><strong>Demo:</strong> username <b>admin</b> · password <b>admin123</b></div>
+  </div></div>
+</div>
+
+<div id="app" class="app-shell hidden">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-mark">S</div><div><strong>STUDENT RECORD SYSTEM</strong><span id="accountLabel">Academic Portal</span></div></div>
+  <nav class="nav">
+    <button class="nav-item active" data-section="dashboard">⌂ <span>Dashboard</span></button>
+    <button class="nav-item" data-section="students">◉ <span>Students</span></button>
+    <button class="nav-item" data-section="attendance">◷ <span>Attendance</span></button>
+    <button class="nav-item" data-section="results">▦ <span>Results</span></button>
+    <button class="nav-item" data-section="reports">▤ <span>Reports</span></button>
+    <button class="nav-item" data-section="settings">⚙ <span>Settings</span></button>
+  </nav>
+  <div class="sidebar-footer"><span class="status-dot"></span> Signed in · <span id="sideUser"></span></div>
+</aside>
+<main class="main">
+<header class="topbar"><button class="icon-btn mobile-menu" id="menuBtn">☰</button><div><p class="eyebrow">ENGINEERING COLLEGE ACADEMIC PORTAL</p><h1 id="pageTitle">Dashboard</h1></div><div class="top-actions"><button class="icon-btn" id="themeBtn">◐</button><button class="avatar" id="userAvatar">AD</button><button class="logout-btn" id="logoutBtn">Logout</button></div></header>
+
+<section id="dashboard" class="page-section active"><div class="hero"><div><span class="pill">2026 Academic Year</span><h2>Manage every student record with <em>clarity.</em></h2><p>Student profiles, academic details, attendance, results and reports — organized in one professional workspace.</p></div><button class="primary" id="heroAdd">+ Add Student</button></div><div class="stats-grid" id="statsGrid"></div><div class="content-grid"><div class="card"><div class="card-head"><div><h3>Performance overview</h3><p>Average CGPA by department</p></div><span class="mini-badge">Live</span></div><div class="bar-chart" id="deptChart"></div></div><div class="card"><div class="card-head"><div><h3>Recent activity</h3><p>Latest account activity</p></div></div><div id="activityList" class="activity-list"></div></div></div><div class="card"><div class="card-head"><div><h3>Students needing attention</h3><p>Attendance below 75% or CGPA below 7.50</p></div><button class="text-btn" data-section="students">View all →</button></div><div id="attentionList"></div></div></section>
+
+<section id="students" class="page-section"><div class="section-head"><div><p class="eyebrow">RECORD MANAGEMENT</p><h2>Student Directory</h2><p>Preview complete engineering-college profiles or edit records.</p></div><button class="primary" id="addBtn">+ Add Student</button></div><div class="toolbar card"><div class="search"><span>⌕</span><input id="searchInput" placeholder="Search name, ID, email, department or phone..."></div><select id="deptFilter"><option value="all">All departments</option><option>Computer Science and Engineering</option><option>Information Technology</option><option>Electronics and Communication Engineering</option><option>Electrical and Electronics Engineering</option><option>Mechanical Engineering</option><option>Civil Engineering</option><option>Artificial Intelligence and Data Science</option></select><select id="yearFilter"><option value="all">All years</option><option value="1">1st Year</option><option value="2">2nd Year</option><option value="3">3rd Year</option><option value="4">4th Year</option></select><button class="secondary" id="exportBtn">Export CSV</button></div><div class="card table-card"><div class="table-wrap"><table><thead><tr><th>Student</th><th>Student ID</th><th>Department</th><th>Year</th><th>Attendance</th><th>CGPA</th><th>Status</th><th>Actions</th></tr></thead><tbody id="studentTable"></tbody></table></div><div class="table-foot"><span id="recordCount"></span><span>Records are saved separately for the signed-in account.</span></div></div></section>
+
+<section id="attendance" class="page-section"><div class="section-head"><div><p class="eyebrow">ACADEMIC MONITORING</p><h2>Attendance</h2><p>Monitor class participation and identify students requiring follow-up.</p></div></div><div class="stats-grid" id="attendanceStats"></div><div class="card table-card"><div class="table-wrap"><table><thead><tr><th>Student</th><th>Department</th><th>Present</th><th>Total Classes</th><th>Attendance</th><th>Risk</th></tr></thead><tbody id="attendanceTable"></tbody></table></div></div></section>
+
+<section id="results" class="page-section"><div class="section-head"><div><p class="eyebrow">ACADEMIC PERFORMANCE</p><h2>Results</h2><p>CGPA distribution and top-performing students.</p></div></div><div class="content-grid"><div class="card"><div class="card-head"><div><h3>Grade distribution</h3><p>Current CGPA bands</p></div></div><div class="donut-wrap"><div class="donut" id="donut"></div><div id="gradeLegend" class="legend"></div></div></div><div class="card"><div class="card-head"><div><h3>Top performers</h3><p>Highest CGPA records</p></div></div><div id="topPerformers"></div></div></div></section>
+
+<section id="reports" class="page-section"><div class="section-head"><div><p class="eyebrow">REPORTING</p><h2>Reports</h2><p>Generate academic summaries from the current account.</p></div><button class="primary" id="printBtn">Print Report</button></div><div class="report-grid"><div class="card report-card"><span class="report-icon">▤</span><h3>Student Directory</h3><p>Complete student list and academic status.</p><button class="secondary" data-report="directory">Generate</button></div><div class="card report-card"><span class="report-icon">◷</span><h3>Attendance Report</h3><p>Attendance percentage and risk classification.</p><button class="secondary" data-report="attendance">Generate</button></div><div class="card report-card"><span class="report-icon">★</span><h3>Performance Report</h3><p>CGPA distribution and top performers.</p><button class="secondary" data-report="performance">Generate</button></div></div><div class="card report-preview" id="reportPreview"><div class="report-sheet"><h2>STUDENT RECORD SYSTEM</h2><p id="reportDate"></p><div id="reportBody"></div></div></div></section>
+
+<section id="settings" class="page-section"><div class="section-head"><div><p class="eyebrow">SYSTEM CONFIGURATION</p><h2>Settings</h2><p>Manage interface preferences and account data.</p></div></div><div class="settings-grid"><div class="card setting"><div><h3>Dark mode</h3><p>Use the modern dark interface for low-light environments.</p></div><label class="switch"><input type="checkbox" id="darkToggle"><span></span></label></div><div class="card setting"><div><h3>Reset sample records</h3><p>Restore the engineering-college demo records for this account.</p></div><button class="danger" id="resetBtn">Reset Data</button></div><div class="card setting"><div><h3>Account isolation</h3><p>Each login has its own student collection and activity history.</p></div><span class="pill">Account-wise</span></div></div></section>
+</main></div>
+
+<div class="modal-backdrop" id="modal"><div class="modal wide"><div class="modal-head"><div><p class="eyebrow">ENGINEERING COLLEGE STUDENT RECORD</p><h2 id="modalTitle">Add Student</h2><p class="muted">Enter complete academic, personal and guardian information.</p></div><button class="icon-btn" id="closeModal">×</button></div><form id="studentForm"><input type="hidden" id="editId"><div class="form-section"><h3>01 · Personal Information</h3><div class="form-grid"><label>Full Name *<input required id="name"></label><label>Student Photo<input type="file" id="photo" accept="image/*"></label><label>Date of Birth<input type="date" id="dob"></label><label>Gender<select id="gender"><option>Male</option><option>Female</option><option>Other</option><option>Prefer not to say</option></select></label><label>Blood Group<select id="bloodGroup"><option>Not Provided</option><option>A+</option><option>A−</option><option>B+</option><option>B−</option><option>AB+</option><option>AB−</option><option>O+</option><option>O−</option></select></label><label>Nationality<input id="nationality" value="Indian"></label></div></div>
+<div class="form-section"><h3>02 · College & Admission Information</h3><div class="form-grid"><label>Student ID / Roll No. *<input required id="studentId"></label><label>University Registration No.<input id="registrationNo"></label><label>Admission No.<input id="admissionNo"></label><label>Department<select id="department"><option>Computer Science and Engineering</option><option>Information Technology</option><option>Electronics and Communication Engineering</option><option>Electrical and Electronics Engineering</option><option>Mechanical Engineering</option><option>Civil Engineering</option><option>Artificial Intelligence and Data Science</option></select></label><label>Degree / Program<select id="program"><option>B.Tech</option><option>B.E.</option><option>M.Tech</option><option>Diploma</option></select></label><label>Academic Year<select id="year"><option value="1">1st Year</option><option value="2">2nd Year</option><option value="3">3rd Year</option><option value="4">4th Year</option></select></label><label>Semester<select id="semester"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option></select></label><label>Section<input id="section" placeholder="A"></label><label>Batch / Academic Session<input id="batch" placeholder="2023–2027"></label><label>Admission Date<input type="date" id="admissionDate"></label></div></div>
+<div class="form-section"><h3>03 · Contact & Address</h3><div class="form-grid"><label>Email *<input type="email" required id="email"></label><label>Mobile Number *<input required id="phone"></label><label>Alternate Phone<input id="altPhone"></label><label>College Email<input type="email" id="collegeEmail"></label><label class="span-2">Permanent Address<textarea id="address" rows="2"></textarea></label><label>City<input id="city"></label><label>State<input id="state"></label><label>PIN Code<input id="pin"></label></div></div>
+<div class="form-section"><h3>04 · Parent / Guardian Information</h3><div class="form-grid"><label>Father / Guardian Name<input id="guardianName"></label><label>Guardian Relation<input id="guardianRelation" value="Father"></label><label>Guardian Mobile<input id="guardianPhone"></label><label>Guardian Email<input type="email" id="guardianEmail"></label><label>Occupation<input id="guardianOccupation"></label></div></div>
+<div class="form-section"><h3>05 · Academic Performance</h3><div class="form-grid"><label>Attendance % *<input type="number" min="0" max="100" required id="attendanceInput"></label><label>CGPA *<input type="number" min="0" max="10" step="0.01" required id="cgpa"></label><label>Current Backlogs<input type="number" min="0" id="backlogs" value="0"></label><label>Credits Earned<input type="number" min="0" id="credits" value="0"></label><label>Class Rank<input type="number" min="0" id="rank"></label><label>Academic Remarks<input id="remarks" placeholder="Excellent / Needs improvement"></label></div></div>
+<div class="form-section"><h3>06 · Student Portal Information</h3><div class="form-grid"><label>Institutional Username<input id="portalUsername"></label><label>Portal Status<select id="portalStatus"><option>Active</option><option>Inactive</option><option>Pending</option></select></label></div></div>
+<div class="form-actions"><button type="button" class="secondary" id="cancelBtn">Cancel</button><button class="primary" type="submit">Save Student Record</button></div></form></div></div>
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body></html>
+                                                         
